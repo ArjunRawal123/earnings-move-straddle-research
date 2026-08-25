@@ -1,0 +1,38 @@
+================================================================
+SECTION 5 — THE HISTORICAL ANCHOR — SUMMARY
+================================================================
+Events scored:            20,099   (502 tickers)
+Median |move|:            3.01%
+Mean |move|:              4.17%
+95th percentile |move|:   12.06%
+
+5.1  UNBIASEDNESS
+     median(realized / hist_8q)  = 1.043   (n=16,101)
+     mean(realized / hist_8q)    = 1.428
+     share within +/-50% of forecast    = 39.4%
+
+5.2  DURABILITY (split-half, ticker medians)
+     Spearman(first half, second half)  = 0.629   (n=502)
+
+5.3  WITHIN-STOCK TIMING
+     pooled single-event Spearman       = 0.318
+     within-stock (demeaned)            = -0.006
+     per-ticker mean Spearman           = -0.037   (n=469)
+     share of tickers positive          = 41.8%
+     excess-variance ratio              = 1.05
+       (observed SD 0.184 vs noise SD 0.175)
+
+SECTOR MEDIAN |move| (%)
+     Utilities                 1.27
+     Real Estate               1.94
+     Financials                2.44
+     Energy                    2.45
+     Materials                 2.74
+     Consumer Staples          3.10
+     Industrials               3.26
+     Health Care               3.39
+     Consumer Discretionary    3.98
+     Communication Services    4.15
+     Information Technology    4.68
+================================================================
+Figures written to report/figures/  (fig1..fig4)

@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__/
+*.pyc
+
+# Keep this live-trading utility private
+analysis/divergence_today.py
+
+# Backups / raw heavy files
+*.bak
+*_bak
+data/ohlcv_all.csv
+data/straddle_snapshots/

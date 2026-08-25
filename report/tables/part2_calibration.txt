@@ -1,0 +1,38 @@
+============================================================
+SECTION 6.1 — CALIBRATION: IMPLIED EM vs HISTORICAL EM
+============================================================
+Clean events analyzed:     133
+Spearman (rank):           0.616
+Pearson:                   0.731
+R-squared:                 0.535
+Regression slope:          0.788
+Regression intercept:      0.849 (pp)
+Median implied/historical: 0.959
+Mean implied/historical:   1.028
+
+Interpretation:
+  slope 0.79: each 1pp of historical EM maps to 0.79pp of implied EM
+  median ratio 0.96: the typical straddle prices -4% vs history
+
+LARGEST DIVERGENCES (implied >> historical) — Section 6.2 candidates:
+  DVN    implied= 4.61%  hist= 1.87%  ratio=2.46
+  EOG    implied= 4.16%  hist= 1.73%  ratio=2.40
+  PCG    implied= 2.19%  hist= 0.92%  ratio=2.38
+  CME    implied= 2.42%  hist= 1.06%  ratio=2.28
+  V      implied= 3.61%  hist= 1.69%  ratio=2.13
+  ALB    implied= 6.54%  hist= 3.22%  ratio=2.03
+  CSX    implied= 4.56%  hist= 2.29%  ratio=2.00
+  BKNG   implied= 7.05%  hist= 3.60%  ratio=1.96
+
+LARGEST NEGATIVE DIVERGENCES (implied << historical):
+  WBD    implied= 1.33%  hist= 5.37%  ratio=0.25
+  BMY    implied= 1.65%  hist= 5.78%  ratio=0.29
+  BAX    implied= 3.03%  hist=10.25%  ratio=0.30
+  NCLH   implied= 2.71%  hist= 8.40%  ratio=0.32
+  DIS    implied= 2.15%  hist= 6.40%  ratio=0.34
+  MMM    implied= 2.55%  hist= 7.57%  ratio=0.34
+  CI     implied= 2.04%  hist= 5.99%  ratio=0.34
+  LMT    implied= 1.76%  hist= 5.04%  ratio=0.35
+============================================================
+Figures -> report/figures/fig6_calibration.png, fig7_calibration_by_sector.png
+Per-event table -> /Users/arjunrawal/Desktop/Investment Research/Historical Earnings Moves, ATM Straddle Pricing, and the Accuracy of Earnings Expectations (July:2026)/EM-Research/data/calibration_events.csv
