@@ -1,28 +1,3 @@
-"""
-part2_divergence.py — Sections 6.2 (divergence) and 6.3 (premium).
-
-Computes realized moves DIRECTLY from prices using the snapshot earnings dates,
-rather than joining to event_em.csv (which is built from an EDGAR file that
-predates the live-collection season and therefore does not contain these events).
-
-Realized move = |close[reaction] / close[reaction-1] - 1|, where the reaction day
-is determined by BMO/AMC timing:
-  - AMC (reports after close): reaction = next trading day after earnings_date
-  - BMO (reports before open): reaction = earnings_date itself
-Timing is taken from data/ticker_timing.csv where available; if a ticker is not
-classified, both candidate days are checked and the one with the larger move is
-used (with the choice logged), since the market reacts on the true day.
-
-Inputs : data/calibration_events.csv   (implied EM + historical mean EM)
-         data/ohlcv_all.csv            (refreshed prices through the season)
-         data/ticker_timing.csv        (BMO/AMC per ticker, optional)
-Outputs: report/figures/fig8_divergence_buckets.png
-         report/tables/part2_divergence.txt
-         data/divergence_events.csv
-
-Run (after refresh):  python3 analysis/part2_divergence.py
-"""
-
 from __future__ import annotations
 from pathlib import Path
 

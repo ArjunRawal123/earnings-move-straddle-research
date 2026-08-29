@@ -1,28 +1,3 @@
-"""
-part2_calibration.py — Section 6.1 (Calibration): does implied EM anchor to history?
-
-Compares the option-implied expected move against the stock's trailing historical
-mean EM across the clean primary sample. NO realized moves needed — this section
-compares two FORECASTS (the market's vs history's), so it runs before the price
-refresh.
-
-Benchmark is the trailing MEAN historical EM (hist_em_mean_8q), not the median:
-the straddle prices a mean absolute move, so the mean is the like-for-like
-comparison. Using the median would let fat-tailed names sit artificially above
-the line (the mean/median wedge) and manufacture false divergences.
-
-Inputs : data/straddle_snapshots/*.csv   (implied EM, collected daily)
-         data/event_em.csv               (historical EM, from realized_em.py)
-         data/constituents.csv           (GICS sectors)
-Outputs: report/figures/fig6_calibration.png
-         report/figures/fig7_calibration_by_sector.png
-         report/tables/part2_calibration.txt
-         data/calibration_events.csv      (the per-event table, for Section 6.2)
-
-Run from the project root:
-    python3 analysis/part2_calibration.py
-"""
-
 from __future__ import annotations
 import glob
 from pathlib import Path
@@ -52,7 +27,6 @@ plt.rcParams.update({
 INK, ACCENT = "#1f2d3d", "#c0392b"
 
 
-# ---------------------------------------------------------------------------
 def load_snapshots() -> pd.DataFrame:
     """All ok snapshots, deduped to the latest per (ticker, collection_date)."""
     files = sorted(glob.glob(str(SNAP_DIR / "*.csv")))
@@ -129,7 +103,6 @@ def attach_sector(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# ---------------------------------------------------------------------------
 def calibrate(df: pd.DataFrame) -> dict:
     x = df["hist_em"].values * 100      # historical EM (%)
     y = df["implied_em"].values * 100   # implied EM (%)
@@ -187,7 +160,6 @@ def make_sector_figure(df: pd.DataFrame):
     plt.close(fig)
 
 
-# ---------------------------------------------------------------------------
 def main():
     FIGDIR.mkdir(parents=True, exist_ok=True)
     TABDIR.mkdir(parents=True, exist_ok=True)

@@ -1,22 +1,3 @@
-"""
-part1_historical.py — Section 5 (The Historical Anchor): final statistics + figures.
-
-Turns the terminal one-liners into reproducible, saved artifacts. Loads the
-scored event table once, recomputes every Section 5 number, writes four figures
-to report/figures/, and prints a paste-ready summary table.
-
-Run from the EM-Research project root:
-    python3 analysis/part1_historical.py
-
-Inputs : data/event_em.csv        (from realized_em.py, timing-corrected)
-         data/constituents.csv     (GICS sectors, for the breakdown)
-Outputs: report/figures/fig1_unbiasedness.png
-         report/figures/fig2_durability.png
-         report/figures/fig3_within_stock_null.png
-         report/figures/fig4_sector_breakdown.png
-         report/tables/part1_summary.txt
-"""
-
 from __future__ import annotations
 
 from pathlib import Path
@@ -49,17 +30,12 @@ plt.rcParams.update({
 INK = "#1f2d3d"
 ACCENT = "#c0392b"
 
-
-# ---------------------------------------------------------------------------
 def load() -> pd.DataFrame:
     d = pd.read_csv(EVENT_EM, parse_dates=["reaction_date"])
     print(f"Loaded {len(d):,} scored events | {d.ticker.nunique()} tickers")
     return d
 
 
-# ---------------------------------------------------------------------------
-# 5.1 — Unbiasedness
-# ---------------------------------------------------------------------------
 def unbiasedness(d: pd.DataFrame) -> dict:
     col = f"em_ratio_{PRIMARY_WINDOW}q"
     r = d[col].dropna()
@@ -85,10 +61,6 @@ def unbiasedness(d: pd.DataFrame) -> dict:
     plt.close(fig)
     return stats
 
-
-# ---------------------------------------------------------------------------
-# 5.2 — Durability (split-half)
-# ---------------------------------------------------------------------------
 def durability(d: pd.DataFrame) -> dict:
     d = d.sort_values(["ticker", "reaction_date"]).copy()
     d["frac"] = d.groupby("ticker").cumcount() / d.groupby("ticker")["abs_move"].transform("size")
@@ -112,9 +84,6 @@ def durability(d: pd.DataFrame) -> dict:
     return {"n": len(m), "spearman": rho}
 
 
-# ---------------------------------------------------------------------------
-# 5.3 — No within-stock timing power
-# ---------------------------------------------------------------------------
 def within_stock(d: pd.DataFrame) -> dict:
     col = f"hist_em_{PRIMARY_WINDOW}q"
     d = d.sort_values(["ticker", "reaction_date"]).copy()
@@ -160,10 +129,6 @@ def within_stock(d: pd.DataFrame) -> dict:
         "share_positive": (pt["rho"] > 0).mean(),
     }
 
-
-# ---------------------------------------------------------------------------
-# Sector breakdown (supporting figure)
-# ---------------------------------------------------------------------------
 def sector_breakdown(d: pd.DataFrame) -> pd.DataFrame:
     con = pd.read_csv(CONSTITUENTS)
     con["Symbol"] = con["Symbol"].astype(str).str.replace(".", "-", regex=False)
@@ -183,7 +148,6 @@ def sector_breakdown(d: pd.DataFrame) -> pd.DataFrame:
     return g
 
 
-# ---------------------------------------------------------------------------
 def main():
     FIGDIR.mkdir(parents=True, exist_ok=True)
     TABDIR.mkdir(parents=True, exist_ok=True)
